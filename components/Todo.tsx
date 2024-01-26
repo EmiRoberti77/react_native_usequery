@@ -1,19 +1,21 @@
 import { FC } from "react"
 import { TodoItem } from "./models/models"
 import { Text, View } from "react-native"
-
+import { useContext } from "react"
+import { ThemeContext } from "./ThemeContext"
 
 interface TodoProps{
     todoItem:TodoItem
 }
 
 const Todo:FC<TodoProps> =({todoItem})=> {
+    const isDarkMode = useContext(ThemeContext);
     const {title, id, completed } = todoItem
     return (
         <View style={{padding:5, marginBottom:5, marginTop:5, backgroundColor:'gray'}}>
-            <Text>{title}</Text>
-            <Text>{id}</Text>
-            <Text>{completed ? 'Complteted' : "Not Completed"}</Text>
+            <Text style={{color: isDarkMode ? 'white' : 'black'}}>{title}</Text>
+            <Text style={{color: isDarkMode ? 'white' : 'black'}}>{id}</Text>
+            <Text style={{color: isDarkMode ? 'white' : 'black'}}>{completed ? 'Complteted' : "Not Completed"}</Text>
         </View>
     )
 }
