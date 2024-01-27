@@ -2,23 +2,26 @@ import React , {useRef, useState} from 'react';
 import { Button, SafeAreaView, ScrollView, View, StyleSheet } from 'react-native';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import TodoList from './components/TodoList';
-import { ThemeContext } from './components/ThemeContext';
+import { AppState, ThemeContext, initState } from './components/ThemeContext';
 import HomeScreen from './components/screens/HomeScreen';
 
 function App(): React.JSX.Element {
     const client = new QueryClient();
     const scrollViewRef = useRef<ScrollView>(null);
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+    const [appState, setAppState] = useState<AppState>(initState);
 
     const styles = StyleSheet.create({
       main:{
-        backgroundColor: isDarkMode ? 'black' : 'white'
+        backgroundColor: appState?.isDarkMode ? 'black' : 'white'
       }
     })
 
     const toggleTheme = () => {
-      setIsDarkMode(!isDarkMode);
-    }
+      setAppState((prevState:AppState)=>({
+        ...prevState,
+        isDarkMode:!prevState.isDarkMode
+      }))
+    };
 
     const handleBackToTop = () => {
       scrollViewRef.current?.scrollTo({
@@ -28,7 +31,7 @@ function App(): React.JSX.Element {
       })
     }
   return (
-    <ThemeContext.Provider value={isDarkMode}>
+    <ThemeContext.Provider value={appState}>
     <QueryClientProvider client={client}>       
       <SafeAreaView style={styles.main}>
       <HomeScreen/>

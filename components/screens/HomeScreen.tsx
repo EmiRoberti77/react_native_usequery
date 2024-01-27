@@ -1,10 +1,11 @@
 import { useContext } from 'react'
 import {View, Text} from 'react-native'
-import { ThemeContext } from '../ThemeContext'
+import { AppState, ThemeContext } from '../ThemeContext'
 
 
 const HomeScreen = () => {
-    const isDarkMode = useContext(ThemeContext);
+    const appState:AppState = useContext(ThemeContext);
+    const {isDarkMode, user} = appState;
     return (
         <View style={{
             backgroundColor: isDarkMode ? 'black' : 'white', 
@@ -12,7 +13,7 @@ const HomeScreen = () => {
             marginHorizontal:10, 
             marginVertical:10
             }}>
-            <Text style={{color: isDarkMode? 'white' : 'black'}}>HELLO WELCOME</Text>
+            <Text style={{color: isDarkMode? 'white' : 'black'}}>Hello {user} welcome</Text>
         </View>
     )
 

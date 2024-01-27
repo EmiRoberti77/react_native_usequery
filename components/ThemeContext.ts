@@ -1,3 +1,13 @@
 import { createContext } from "react";
 
-export const ThemeContext = createContext<boolean>(false);
+export interface AppState {
+    isDarkMode:boolean;
+    user:string;
+}
+
+export const initState:AppState ={
+    isDarkMode:false,
+    user:'emi'
+}
+
+export const ThemeContext = createContext<AppState>(initState);
