@@ -51,6 +51,7 @@ function App(): React.JSX.Element {
     <QueryClientProvider client={client}>       
       <SafeAreaView style={styles.main}>
       <TextInput 
+        keyboardType='default'
         value={inputText}
         style={{borderColor:'blue', borderWidth:1, padding:15, marginTop:20}}
         onChangeText={value=>setInputText(value)}
