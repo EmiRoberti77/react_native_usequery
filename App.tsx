@@ -6,15 +6,16 @@ import {
   View, 
   StyleSheet, 
   Text, 
-  Image 
+  Image,
+  TextInput
 } from 'react-native';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import TodoList from './components/TodoList';
 import { AppState, ThemeContext, initState } from './components/ThemeContext';
 import HomeScreen from './components/screens/HomeScreen';
 import useToggle from './components/custom_hooks/UseToggle';
-//import {join} from 'path'
 const imageUri = 'https://handletheheat.com/wp-content/uploads/2015/03/Best-Birthday-Cake-with-milk-chocolate-buttercream-SQUARE.jpg';
+
 
 
 function App(): React.JSX.Element {
@@ -22,6 +23,7 @@ function App(): React.JSX.Element {
     const [isOn, toogle] = useToggle();
     const scrollViewRef = useRef<ScrollView>(null);
     const [appState, setAppState] = useState<AppState>(initState);
+    const [inputText, setInputText] = useState<string>('');
     //const imagePath = join(__dirname, 'assets', 'images', 'cake.png')
 
     const styles = StyleSheet.create({
@@ -48,6 +50,13 @@ function App(): React.JSX.Element {
     <ThemeContext.Provider value={appState}>
     <QueryClientProvider client={client}>       
       <SafeAreaView style={styles.main}>
+      <TextInput 
+        value={inputText}
+        style={{borderColor:'blue', borderWidth:1, padding:15, marginTop:20}}
+        onChangeText={value=>setInputText(value)}
+        placeholder='add text here'
+      />
+      <Text>{inputText}</Text>
       <HomeScreen/>
       <Text
         style={{ alignContent: 'center', textAlign: 'center' }}>
